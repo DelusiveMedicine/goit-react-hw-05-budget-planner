@@ -1,0 +1,8 @@
+const types = {
+  SAVE_BUDGET: 'SAVE_BUDGET',
+  ADD_EXPENSE: 'ADD_EXPENSE',
+  REMOVE_EXPENSE: 'REMOVE_EXPENSE',
+  TOTAL_EXPENSES: 'TOTAL_EXPENSES',
+};
+
+export default types;

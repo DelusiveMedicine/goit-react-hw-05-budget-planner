@@ -1,2 +1,1 @@
-# goit-react-hw-05-budget-planner
-GOIT React Homework #5
+https://delusivemedicine.github.io/goit-react-hw-05-budget-planner/
