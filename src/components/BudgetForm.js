@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withToastManager } from 'react-toast-notifications';
 import Form from './shared/Form';
 import Label from './shared/Label';
 import Input from './shared/Input';
@@ -26,10 +27,19 @@ class BudgetForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { saveBudget } = this.props;
-    const { budget } = this.state;
+
+    const { saveBudget, toastManager } = this.props;
+    const budget = Number(this.state.budget);
+
+    if (budget < 0) {
+      this.setState({ budget: '' });
+      return toastManager.add('Введите сумму больше 0!', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+    }
     saveBudget(budget);
-    this.setState({ budget: '' });
+    return this.setState({ budget: '' });
   };
 
   render() {
@@ -53,6 +63,7 @@ class BudgetForm extends Component {
 
 BudgetForm.propTypes = {
   saveBudget: PropTypes.func.isRequired,
+  toastManager: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -60,4 +71,4 @@ export default connect(
     budgetState,
   }),
   { saveBudget },
-)(BudgetForm);
+)(withToastManager(BudgetForm));
