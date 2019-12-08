@@ -51,7 +51,7 @@ ExpensesTable.propTypes = {
   budgetState: PropTypes.shape({
     data: PropTypes.array,
     total: PropTypes.number,
-    budget: PropTypes.number,
+    budget: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     balance: PropTypes.number,
   }).isRequired,
   removeExpense: PropTypes.func.isRequired,

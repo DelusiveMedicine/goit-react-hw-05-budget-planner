@@ -15,7 +15,7 @@ const labelStyles = `
 
 class BudgetForm extends Component {
   state = {
-    budget: 0,
+    budget: '',
   };
 
   handleChange = e => {
@@ -29,7 +29,7 @@ class BudgetForm extends Component {
     const { saveBudget } = this.props;
     const { budget } = this.state;
     saveBudget(budget);
-    this.setState({ budget: 0 });
+    this.setState({ budget: '' });
   };
 
   render() {
@@ -39,8 +39,9 @@ class BudgetForm extends Component {
           Enter your total budget
           <Input
             type="number"
-            value={this.state.budget}
             onChange={this.handleChange}
+            value={this.state.budget}
+            placeholder="0"
           />
         </Label>
 

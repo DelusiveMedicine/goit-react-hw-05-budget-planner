@@ -32,8 +32,13 @@ const Value = ({ label, value, isPositive }) => (
 
 Value.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  isPositive: PropTypes.bool.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isPositive: PropTypes.bool,
+};
+
+Value.defaultProps = {
+  isPositive: false,
+  value: 0,
 };
 
 export default Value;

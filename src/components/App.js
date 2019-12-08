@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import BudgetForm from './BudgetForm';
 import ExpenseForm from './ExpenseForm';
 import ExpensesTable from './ExpensesTable';
@@ -37,7 +38,7 @@ App.propTypes = {
   budgetState: PropTypes.shape({
     data: PropTypes.array,
     total: PropTypes.number,
-    budget: PropTypes.number,
+    budget: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     balance: PropTypes.number,
   }).isRequired,
 };

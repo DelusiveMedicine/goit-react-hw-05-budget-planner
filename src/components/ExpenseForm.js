@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withToastManager } from 'react-toast-notifications';
 import Form from './shared/Form';
 import Label from './shared/Label';
 import Input from './shared/Input';
@@ -16,7 +17,7 @@ const labelStyles = `
 class ExpenseForm extends Component {
   state = {
     name: '',
-    amount: 0,
+    amount: '',
   };
 
   handleChange = e => {
@@ -28,10 +29,39 @@ class ExpenseForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { addExpense } = this.props;
+    const { addExpense, budgetState, toastManager } = this.props;
+    const { balance } = budgetState;
+    const amount = Number(this.state.amount);
+    const { name } = this.state;
+
+    if (balance < amount) {
+      this.setState({ name: '', amount: '' });
+      return toastManager.add(
+        'На счету недостаточно средств для проведения операции!',
+        {
+          appearance: 'warning',
+          autoDismiss: true,
+        },
+      );
+    }
+
+    if (amount <= 0) {
+      this.setState({ name: '', amount: '' });
+      return toastManager.add('Введите сумму для проведения операции!', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+    }
+
+    if (!name) {
+      return toastManager.add('Введите название операции!', {
+        appearance: 'warning',
+        autoDismiss: true,
+      });
+    }
 
     addExpense({ ...this.state });
-    this.setState({ name: '', amount: 0 });
+    return this.setState({ name: '', amount: '' });
   };
 
   render() {
@@ -52,6 +82,7 @@ class ExpenseForm extends Component {
             type="number"
             name="amount"
             value={this.state.amount}
+            placeholder="0"
             onChange={this.handleChange}
           />
         </Label>
@@ -63,9 +94,16 @@ class ExpenseForm extends Component {
 }
 
 ExpenseForm.propTypes = {
+  budgetState: PropTypes.shape({
+    data: PropTypes.array,
+    total: PropTypes.number,
+    budget: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    balance: PropTypes.number,
+  }).isRequired,
   addExpense: PropTypes.func.isRequired,
+  toastManager: PropTypes.func.isRequired,
 };
 
 export default connect(({ budgetState }) => ({ budgetState }), { addExpense })(
-  ExpenseForm,
+  withToastManager(ExpenseForm),
 );

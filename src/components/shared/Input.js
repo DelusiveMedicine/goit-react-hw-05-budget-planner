@@ -17,8 +17,14 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ type, value, onChange, name }) => (
-  <StyledInput type={type} value={value} onChange={onChange} name={name} />
+const Input = ({ type, value, onChange, name, placeholder }) => (
+  <StyledInput
+    type={type}
+    value={value}
+    onChange={onChange}
+    name={name}
+    placeholder={placeholder}
+  />
 );
 
 Input.propTypes = {
@@ -26,6 +32,7 @@ Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Input.defaultProps = {
@@ -33,6 +40,7 @@ Input.defaultProps = {
   value: '',
   onChange: () => null,
   name: '',
+  placeholder: '',
 };
 
 export default Input;
