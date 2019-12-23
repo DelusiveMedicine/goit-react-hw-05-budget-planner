@@ -1,14 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Value from './Value';
-
-const Container = styled.section`
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+import Container from './styles';
+import Value from '../Value/Value';
 
 const Values = ({ budgetState }) => {
   const { budget, total, balance } = budgetState;

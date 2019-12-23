@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withToastManager } from 'react-toast-notifications';
-import Form from './shared/Form';
-import Label from './shared/Label';
-import Input from './shared/Input';
-import Button from './shared/Button';
+import Form from './shared/Form/Form';
+import Label from './shared/Label/Label';
+import Input from './shared/Input/Input';
+import Button from './shared/Button/Button';
 import { addExpense } from '../AC';
 
 const labelStyles = `
